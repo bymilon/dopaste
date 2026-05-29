@@ -1,0 +1,23 @@
+@import "tailwindcss";
+
+/* Define light theme defaults */
+:root {
+    --background: #ffffff;
+    --text: #09090b;
+}
+
+/* Define dark theme variables based on system settings */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --background: #09090b;
+        --text: #fafafa;
+    }
+}
+
+/* Map variables to utility base classes */
+@layer base {
+    body {
+        background-color: var(--background);
+        color: var(--text);
+    }
+}

@@ -1,0 +1,39 @@
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+
+  "name": "dopaste",
+
+  "main": "@astrojs/cloudflare/entrypoints/server",
+
+  "compatibility_date": "2026-05-29",
+
+  "compatibility_flags": ["nodejs_compat"],
+
+  "assets": {
+    "directory": "./dist",
+    "binding": "ASSETS",
+  },
+
+  "kv_namespaces": [
+    {
+      "binding": "CACHE",
+      "id": "dc1e283c44a3469290c74623fb86105b",
+    },
+  ],
+
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "dopaste",
+      "database_id": "44a1bda5-c9d2-47e5-8060-3a59d4b9586e",
+    },
+  ],
+
+  "vars": {
+    "ENVIRONMENT": "production",
+  },
+
+  "observability": {
+    "enabled": true,
+  },
+}

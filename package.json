@@ -12,6 +12,18 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^6.4.2"
+    "@astrojs/cloudflare": "^13.6.0",
+    "astro": "^6.4.2",
+    "dompurify": "^3.4.7",
+    "hono": "^4.12.23",
+    "markdown-it": "^14.2.0",
+    "zod": "^4.4.3"
+  },
+  "devDependencies": {
+    "@tailwindcss/vite": "^4.3.0",
+    "oxlint": "^1.67.0",
+    "tailwindcss": "^4.3.0",
+    "typescript": "^6.0.3",
+    "vitest": "^4.1.7"
   }
 }
