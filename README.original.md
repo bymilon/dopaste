@@ -1,6 +1,10 @@
 # Dopaste
 
-Minimal Markdown pastebin. Fast. Simple. No accounts. No noise.
+A minimal Markdown pastebin built for speed, simplicity, and focus.
+
+No accounts.
+No distractions.
+Just write, paste, share.
 
 ---
 
@@ -8,25 +12,25 @@ Minimal Markdown pastebin. Fast. Simple. No accounts. No noise.
 
 ### Writing Experience
 
-- Markdown-first
-- Clean UI
-- Dark default
-- Fast
-- Keyboard-friendly
+- Markdown-first editor
+- Clean, distraction-free interface
+- Dark mode by default
+- Fast page loads
+- Keyboard-friendly workflow
 
 ### Sharing
 
-- Instant
-- Permanent URLs
-- Read-only views
-- Mobile-friendly
+- Instant paste creation
+- Permanent shareable URLs
+- Read-only rendered views
+- Mobile-friendly experience
 
 ### Platform
 
-- Edge-first
-- Cloudflare global delivery
+- Edge-first architecture
+- Global delivery via Cloudflare
 - Serverless infrastructure
-- Low ops
+- Low operational overhead
 
 ---
 
@@ -74,7 +78,7 @@ Cloudflare Workers
 
 ## Vertical Slices
 
-Feature, not layer.
+The application is organized around features rather than technical layers.
 
 ```text
 src/
@@ -92,21 +96,21 @@ src/
 └── layouts/
 ```
 
-Slice owns:
+Each slice owns:
 
 - UI
-- Logic
+- Business logic
 - Validation
 - Types
 - Tests
 
-No cross-slice coupling.
+Avoid cross-slice coupling.
 
 ---
 
 ## AI Agent Native Development
 
-For:
+This repository is optimized for:
 
 - OpenAI Codex
 - Claude Code
@@ -116,7 +120,7 @@ For:
 - KISS
 - YAGNI
 - DRY
-- Smallest diff
+- Smallest possible change
 - Vertical slice ownership
 - No speculative abstractions
 - Prefer existing patterns
@@ -143,12 +147,12 @@ Validate
 Stop
 ```
 
-Agents:
+Agents should:
 
 - Touch only required files
-- Reuse patterns
-- Avoid unrelated refactor
-- Avoid architecture change unless requested
+- Reuse existing patterns
+- Avoid unrelated refactors
+- Avoid architecture changes unless requested
 
 ---
 
@@ -188,13 +192,13 @@ bun run build
 
 ## Environment
 
-Target:
+Target Platform:
 
 - Cloudflare Workers
 - Cloudflare D1
 - Cloudflare KV
 
-Dev:
+Development Environment:
 
 - Windows 11
 - Bun
@@ -205,22 +209,22 @@ Dev:
 
 ### Simplicity First
 
-Simplest works.
+Prefer the simplest implementation that solves the problem.
 
 ### Vertical Slice Architecture
 
-Feature-first.
+Organize by feature, not by file type.
 
 ### Edge Native
 
-Fit Cloudflare Workers constraints.
+Optimize for Cloudflare Workers runtime constraints.
 
 ### Maintainability
 
-Readable.
+Code is read more often than it is written.
 
 ---
 
 ## Status
 
-Active.
+Active development.

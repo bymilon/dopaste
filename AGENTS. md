@@ -2,7 +2,7 @@
 
 ## Purpose
 
-This file is the single source of truth for all coding agents operating in this repository.
+Single source of truth for coding agents in this repo.
 
 Stack:
 - Astro (latest stable)
@@ -14,13 +14,13 @@ Stack:
 
 ## Operating Principles
 
-- Prefer the simplest solution that satisfies the requirement.
-- Follow KISS, YAGNI, and DRY.
-- Make the smallest possible change.
+- Prefer simplest solution that satisfies requirement.
+- KISS, YAGNI, DRY.
+- Smallest change.
 - Do not refactor unrelated code.
-- Do not introduce abstractions without a demonstrated need.
-- Optimize for maintainability over cleverness.
-- Preserve existing architecture unless explicitly instructed otherwise.
+- No abstraction without proven need.
+- Maintainable > clever.
+- Preserve architecture unless explicitly told otherwise.
 
 ---
 
@@ -28,59 +28,70 @@ Stack:
 
 - Be concise.
 - Do not explain obvious implementation details.
-- Do not produce long reasoning.
-- Ask for clarification only when a requirement is genuinely ambiguous or unsafe.
-- If multiple valid approaches exist, choose the simplest one.
-- Do not create work that was not requested.
+- No long reasoning.
+- Ask only when requirement ambiguous or unsafe.
+- Multiple valid approaches: choose simplest.
+- Do not create unrequested work.
 
 ---
 
 ## Code Changes
 
 - Touch only files required for the task.
-- Reuse existing patterns before introducing new ones.
+- Reuse patterns before adding new.
 - Prefer existing dependencies over adding new packages.
-- If a package is required, use Bun.
+- New package: use Bun.
 
 Example:
 
 ```bash
 bun add <package>
+```
 
 ---
 
 ## Environment
 
-Operating System:
+OS:
 - Windows 11
 
-Shell Preference:
+Shell:
 1. PowerShell
 2. Bash (if explicitly available)
 3. Command Prompt
 
-When generating commands:
+Commands:
 
 - Prefer PowerShell-compatible commands.
 - Use Windows-compatible paths.
-- Avoid Linux/macOS-specific commands unless requested.
-- Do not assume WSL is installed.
-- Do not assume Docker is installed.
+- Avoid Linux/macOS commands unless requested.
+- Do not assume WSL.
+- Do not assume Docker.
+
+---
+
+## RTK
+
+Ref: `C:\Users\alpha\.codex\RTK.md`
+
+- Prefix shell commands with `rtk`.
+- Need raw output: `rtk proxy <cmd>`.
+- Check savings/version: `rtk gain`, `rtk --version`.
 
 ---
 
 ## Learned User Preferences
-- When asked to finish implementation tasks, respond with `**DONE**` only.
-- Keep responses and reviews concise and action-focused.
+- Finish implementation tasks: respond `**DONE**` only.
+- Responses/reviews: concise, action-focused.
 
 ---
 
 ## opensrc — source lookup for agents
 
-Use `bunx opensrc path <pkg>` to get the cached source path of any dependency. Read or search source directly — not just types.
+Use `bunx opensrc path <pkg>` for cached dependency source path. Read/search source, not just types.
 
 **Cached deps (use immediately, no network):**
-```
+```text
 opensrc path astro
 opensrc path zod               # Zod schema/validator source
 opensrc path typescript        # TypeScript compiler source + lib types
@@ -96,3 +107,4 @@ rtk bat (rg --files "$(opensrc path zod)" -g "*types.ts")
 
 # Search Zod for a specific validator
 rtk rg -r "safeParse" $(opensrc path zod)
+```

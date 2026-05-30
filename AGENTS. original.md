@@ -1,0 +1,99 @@
+# AGENTS.md
+
+## Purpose
+
+This file is the single source of truth for all coding agents operating in this repository.
+
+Stack:
+- Astro (latest stable)
+- Cloudflare D1
+- Cloudflare KV
+- Bun
+
+---
+
+## Operating Principles
+
+- Prefer the simplest solution that satisfies the requirement.
+- Follow KISS, YAGNI, and DRY.
+- Make the smallest possible change.
+- Do not refactor unrelated code.
+- Do not introduce abstractions without a demonstrated need.
+- Optimize for maintainability over cleverness.
+- Preserve existing architecture unless explicitly instructed otherwise.
+
+---
+
+## Communication
+
+- Be concise.
+- Do not explain obvious implementation details.
+- Do not produce long reasoning.
+- Ask for clarification only when a requirement is genuinely ambiguous or unsafe.
+- If multiple valid approaches exist, choose the simplest one.
+- Do not create work that was not requested.
+
+---
+
+## Code Changes
+
+- Touch only files required for the task.
+- Reuse existing patterns before introducing new ones.
+- Prefer existing dependencies over adding new packages.
+- If a package is required, use Bun.
+
+Example:
+
+```bash
+bun add <package>
+
+---
+
+## Environment
+
+Operating System:
+- Windows 11
+
+Shell Preference:
+1. PowerShell
+2. Bash (if explicitly available)
+3. Command Prompt
+
+When generating commands:
+
+- Prefer PowerShell-compatible commands.
+- Use Windows-compatible paths.
+- Avoid Linux/macOS-specific commands unless requested.
+- Do not assume WSL is installed.
+- Do not assume Docker is installed.
+
+---
+
+## Learned User Preferences
+- When asked to finish implementation tasks, respond with `**DONE**` only.
+- Keep responses and reviews concise and action-focused.
+
+---
+
+## opensrc — source lookup for agents
+
+Use `bunx opensrc path <pkg>` to get the cached source path of any dependency. Read or search source directly — not just types.
+
+**Cached deps (use immediately, no network):**
+```
+opensrc path astro
+opensrc path zod               # Zod schema/validator source
+opensrc path typescript        # TypeScript compiler source + lib types
+```
+
+**Usage patterns:**
+```bash
+# Find Hono middleware types
+rtk rg "MiddlewareHandler" $(opensrc path hono)
+
+# Check libsql Client interface
+rtk bat (rg --files "$(opensrc path zod)" -g "*types.ts")
+
+# Search Zod for a specific validator
+rtk rg -r "safeParse" $(opensrc path zod)
+
