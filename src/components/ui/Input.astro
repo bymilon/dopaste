@@ -1,0 +1,45 @@
+---
+type Props = {
+    id: string;
+    name: string;
+    type?: "text" | "email" | "url" | "search" | "password";
+    value?: string;
+    placeholder?: string;
+    disabled?: boolean;
+    autofocus?: boolean;
+    invalid?: boolean;
+    autocomplete?: string;
+    ariaDescribedby?: string;
+    class?: string;
+};
+
+const {
+    id,
+    name,
+    type = "text",
+    value = "",
+    placeholder = "",
+    disabled = false,
+    autofocus = false,
+    invalid = false,
+    autocomplete,
+    ariaDescribedby,
+    class: className = "",
+} = Astro.props;
+---
+
+<div class:list={["ui-control-shell", className]}>
+    <input
+        id={id}
+        name={name}
+        type={type}
+        value={value}
+        placeholder={placeholder}
+        disabled={disabled}
+        autofocus={autofocus}
+        autocomplete={autocomplete}
+        aria-describedby={ariaDescribedby}
+        aria-invalid={invalid ? "true" : "false"}
+        class="ui-control min-h-11 px-3 py-3 text-[0.875rem] leading-5"
+    />
+</div>

@@ -1,0 +1,23 @@
+---
+import BaseLayout from "./BaseLayout.astro";
+import Surface from "../components/ui/Surface.astro";
+
+type Props = {
+    title: string;
+    eyebrow?: string;
+    description?: string;
+};
+
+const { title, eyebrow = "Dopaste", description = "Dopaste information." } = Astro.props;
+---
+
+<BaseLayout title={`${title} | Dopaste`} description={description}>
+    <Surface as="article" class="content-page flex flex-1 flex-col gap-6 p-5 sm:p-8">
+        <header class="flex flex-col gap-4">
+            <p class="ui-label">{eyebrow}</p>
+            <h1>{title}</h1>
+            {description && <p class="text-lg">{description}</p>}
+        </header>
+        <slot />
+    </Surface>
+</BaseLayout>

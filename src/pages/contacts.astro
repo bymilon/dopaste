@@ -1,0 +1,21 @@
+---
+import ButtonLink from "../components/ui/ButtonLink.astro";
+import ContentLayout from "../layouts/ContentLayout.astro";
+---
+
+<ContentLayout title="Contacts" description="For issues, source code, and project updates, use the public project channels.">
+    <section>
+        <h2>Project</h2>
+        <p>
+            Dopaste is developed in the open. Bugs, ideas, and implementation details belong in the repository.
+        </p>
+        <div class="mt-5 flex flex-wrap gap-3">
+            <ButtonLink href="https://github.com/bymilon/dopaste" target="_blank" rel="noopener noreferrer">
+                GitHub
+            </ButtonLink>
+            <ButtonLink href="https://x.com/milonspace" variant="ghost" target="_blank" rel="noopener noreferrer">
+                X / Milonspace
+            </ButtonLink>
+        </div>
+    </section>
+</ContentLayout>

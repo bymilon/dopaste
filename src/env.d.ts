@@ -1,6 +1,7 @@
 /// <reference types="astro/client" />
-/// <reference path="../worker-configuration.d.ts" />
+
+import type { Env } from "../worker-configuration";
 
 declare module "cloudflare:workers" {
-  interface ProvidedEnv extends Env {}
+    interface ProvidedEnv extends Env {}
 }

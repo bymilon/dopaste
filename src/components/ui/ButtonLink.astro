@@ -1,23 +1,26 @@
 ---
 type Props = {
-    type?: "button" | "submit" | "reset";
+    href: string;
     variant?: "primary" | "secondary" | "ghost" | "destructive";
-    disabled?: boolean;
+    target?: string;
+    rel?: string;
     class?: string;
 };
 
 const {
-    type = "button",
-    variant = "primary",
-    disabled = false,
+    href,
+    variant = "secondary",
+    target,
+    rel,
     class: className = "",
 } = Astro.props;
 ---
 
-<button
-    type={type}
-    disabled={disabled}
+<a
+    href={href}
+    target={target}
+    rel={rel}
     class:list={["ui-button px-4 py-3", `ui-button-${variant}`, className]}
 >
     <slot />
-</button>
+</a>

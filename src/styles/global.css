@@ -8,17 +8,17 @@
     --surface-elevated: oklch(19.5% 0.014 238);
     --surface-overlay: oklch(23% 0.016 238);
 
-    --border-subtle: oklch(27% 0.014 238 / 0.72);
-    --border-strong: oklch(37% 0.017 238 / 0.9);
-    --border-interactive: oklch(68% 0.12 170 / 0.84);
+    --border-subtle: oklch(26% 0.012 238 / 0.64);
+    --border-strong: oklch(34% 0.014 238 / 0.82);
+    --border-interactive: oklch(66% 0.095 170 / 0.78);
 
     --text-primary: oklch(92% 0.012 238);
     --text-secondary: oklch(72% 0.015 238);
     --text-tertiary: oklch(53% 0.015 238);
     --text-disabled: oklch(43% 0.012 238);
 
-    --accent: oklch(70% 0.13 170);
-    --accent-strong: oklch(78% 0.14 170);
+    --accent: oklch(68% 0.105 170);
+    --accent-strong: oklch(74% 0.11 170);
     --success: oklch(70% 0.12 152);
     --warning: oklch(76% 0.13 82);
     --danger: oklch(69% 0.16 24);
@@ -48,10 +48,10 @@
         background:
             radial-gradient(
                 circle at 18% -12%,
-                oklch(28% 0.035 205 / 0.16),
-                transparent 32rem
+                oklch(24% 0.025 205 / 0.1),
+                transparent 30rem
             ),
-            linear-gradient(180deg, var(--surface-secondary), var(--surface-primary) 34rem);
+            linear-gradient(180deg, var(--surface-secondary), var(--surface-primary) 30rem);
         color: var(--text);
         font-family:
             ui-sans-serif,
@@ -65,7 +65,7 @@
     }
 
     ::selection {
-        background: oklch(70% 0.13 170 / 0.24);
+        background: oklch(68% 0.105 170 / 0.24);
         color: var(--text-primary);
     }
 }
@@ -76,40 +76,37 @@
         border: 1px solid var(--border-subtle);
         border-radius: var(--radius-lg);
         background:
-            linear-gradient(180deg, oklch(100% 0 0 / 0.035), transparent 26%),
+            linear-gradient(180deg, oklch(100% 0 0 / 0.022), transparent 28%),
             linear-gradient(180deg, var(--surface-elevated), var(--surface-secondary));
         box-shadow:
-            inset 0 1px 0 oklch(100% 0 0 / 0.055),
-            inset 0 -1px 0 oklch(0% 0 0 / 0.28),
-            0 1px 0 oklch(100% 0 0 / 0.025),
-            0 18px 36px oklch(0% 0 0 / 0.18);
+            inset 0 1px 0 oklch(100% 0 0 / 0.04),
+            inset 0 -1px 0 oklch(0% 0 0 / 0.22),
+            0 1px 2px oklch(0% 0 0 / 0.16);
     }
 
     .ui-surface-primary {
         background:
-            linear-gradient(180deg, oklch(100% 0 0 / 0.03), transparent 30%),
+            linear-gradient(180deg, oklch(100% 0 0 / 0.018), transparent 30%),
             var(--surface-primary);
     }
 
     .ui-surface-overlay {
         background:
-            linear-gradient(180deg, oklch(100% 0 0 / 0.05), transparent 32%),
+            linear-gradient(180deg, oklch(100% 0 0 / 0.03), transparent 32%),
             var(--surface-overlay);
     }
 
     .ui-divider {
-        height: 3px;
+        height: 1px;
         border: 0;
-        background:
-            linear-gradient(180deg, oklch(100% 0 0 / 0.045), transparent 1px),
-            linear-gradient(180deg, transparent 1px, var(--border-subtle) 1px 2px, oklch(0% 0 0 / 0.28) 2px);
+        background: var(--border-subtle);
     }
 
     .ui-label {
         color: var(--text-tertiary);
         font-size: var(--type-label);
-        font-weight: 700;
-        letter-spacing: 0.24em;
+        font-weight: 650;
+        letter-spacing: 0.18em;
         line-height: 1;
         text-transform: uppercase;
     }
@@ -131,11 +128,11 @@
         border: 1px solid var(--border-subtle);
         border-radius: var(--radius-md);
         background:
-            linear-gradient(180deg, oklch(100% 0 0 / 0.035), transparent 22%),
+            linear-gradient(180deg, oklch(100% 0 0 / 0.022), transparent 22%),
             linear-gradient(180deg, var(--surface-overlay), var(--surface-elevated));
         box-shadow:
-            inset 0 1px 0 oklch(100% 0 0 / 0.055),
-            inset 0 -1px 0 oklch(0% 0 0 / 0.32);
+            inset 0 1px 0 oklch(100% 0 0 / 0.04),
+            inset 0 -1px 0 oklch(0% 0 0 / 0.24);
         transition:
             border-color 160ms ease,
             box-shadow 160ms ease,
@@ -145,9 +142,9 @@
     .ui-control-shell:focus-within {
         border-color: var(--border-interactive);
         box-shadow:
-            inset 0 1px 0 oklch(100% 0 0 / 0.07),
-            inset 0 -1px 0 oklch(0% 0 0 / 0.34),
-            0 0 0 3px oklch(70% 0.13 170 / 0.13);
+            inset 0 1px 0 oklch(100% 0 0 / 0.05),
+            inset 0 -1px 0 oklch(0% 0 0 / 0.26),
+            0 0 0 3px oklch(68% 0.105 170 / 0.12);
     }
 
     .ui-control {
@@ -168,29 +165,67 @@
     }
 
     .ui-button {
-        border: 1px solid oklch(78% 0.14 170 / 0.64);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border: 1px solid transparent;
         border-radius: var(--radius-md);
-        background:
-            linear-gradient(180deg, oklch(100% 0 0 / 0.28), transparent 42%),
-            linear-gradient(180deg, var(--accent-strong), var(--accent));
-        box-shadow:
-            inset 0 1px 0 oklch(100% 0 0 / 0.32),
-            inset 0 -1px 0 oklch(0% 0 0 / 0.2),
-            0 8px 18px oklch(0% 0 0 / 0.24);
-        color: oklch(15% 0.024 170);
         font-size: var(--type-label);
-        font-weight: 800;
-        letter-spacing: 0.18em;
+        font-weight: 700;
+        letter-spacing: 0.12em;
         line-height: 1;
+        text-decoration: none;
         text-transform: uppercase;
         transition:
+            border-color 160ms ease,
+            color 160ms ease,
             filter 160ms ease,
             transform 160ms ease,
             box-shadow 160ms ease;
     }
 
+    .ui-button-primary {
+        border-color: oklch(78% 0.14 170 / 0.64);
+        background:
+            linear-gradient(180deg, oklch(100% 0 0 / 0.16), transparent 44%),
+            linear-gradient(180deg, var(--accent-strong), var(--accent));
+        box-shadow:
+            inset 0 1px 0 oklch(100% 0 0 / 0.2),
+            inset 0 -1px 0 oklch(0% 0 0 / 0.18);
+        color: oklch(15% 0.024 170);
+    }
+
+    .ui-button-secondary {
+        border-color: var(--border-strong);
+        background:
+            linear-gradient(180deg, oklch(100% 0 0 / 0.04), transparent 44%),
+            linear-gradient(180deg, var(--surface-overlay), var(--surface-elevated));
+        box-shadow:
+            inset 0 1px 0 oklch(100% 0 0 / 0.055),
+            inset 0 -1px 0 oklch(0% 0 0 / 0.22);
+        color: var(--text-primary);
+    }
+
+    .ui-button-ghost {
+        border-color: var(--border-subtle);
+        background: transparent;
+        box-shadow: none;
+        color: var(--text-secondary);
+    }
+
+    .ui-button-destructive {
+        border-color: oklch(69% 0.16 24 / 0.62);
+        background:
+            linear-gradient(180deg, oklch(100% 0 0 / 0.14), transparent 44%),
+            linear-gradient(180deg, oklch(73% 0.16 24), var(--danger));
+        box-shadow:
+            inset 0 1px 0 oklch(100% 0 0 / 0.16),
+            inset 0 -1px 0 oklch(0% 0 0 / 0.2);
+        color: oklch(16% 0.03 24);
+    }
+
     .ui-button:hover:not(:disabled) {
-        filter: brightness(1.06);
+        filter: brightness(1.04);
         transform: translateY(-1px);
     }
 
@@ -204,7 +239,7 @@
         cursor: not-allowed;
         border-color: var(--border-subtle);
         background: var(--surface-overlay);
-        box-shadow: inset 0 1px 0 oklch(100% 0 0 / 0.035);
+        box-shadow: inset 0 1px 0 oklch(100% 0 0 / 0.025);
         color: var(--text-disabled);
         transform: none;
     }
@@ -216,5 +251,51 @@
 
     .ui-link:hover {
         color: var(--text-secondary);
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+        .ui-control-shell,
+        .ui-button,
+        .ui-link {
+            transition-duration: 1ms;
+        }
+
+        .ui-button:hover:not(:disabled) {
+            transform: none;
+        }
+    }
+
+    .content-page {
+        color: var(--text-secondary);
+    }
+
+    .content-page h1,
+    .content-page h2 {
+        color: var(--text-primary);
+        font-weight: 700;
+        letter-spacing: -0.025em;
+    }
+
+    .content-page h1 {
+        font-size: clamp(2rem, 6vw, 3.75rem);
+        line-height: 0.95;
+    }
+
+    .content-page h2 {
+        margin-top: 2rem;
+        font-size: 1rem;
+        line-height: 1.2;
+    }
+
+    .content-page p,
+    .content-page li {
+        max-width: 64ch;
+        line-height: 1.7;
+    }
+
+    .content-page ul {
+        display: grid;
+        gap: 0.75rem;
+        padding-left: 1.25rem;
     }
 }
