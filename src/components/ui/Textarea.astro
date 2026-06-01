@@ -1,0 +1,41 @@
+---
+type Props = {
+    id: string;
+    name: string;
+    value?: string;
+    placeholder?: string;
+    disabled?: boolean;
+    autofocus?: boolean;
+    invalid?: boolean;
+    rows?: number;
+    ariaDescribedby?: string;
+    class?: string;
+};
+
+const {
+    id,
+    name,
+    value = "",
+    placeholder = "",
+    disabled = false,
+    autofocus = false,
+    invalid = false,
+    rows = 16,
+    ariaDescribedby,
+    class: className = "",
+} = Astro.props;
+---
+
+<div class:list={["ui-control-shell", className]}>
+    <textarea
+        id={id}
+        name={name}
+        rows={rows}
+        placeholder={placeholder}
+        disabled={disabled}
+        autofocus={autofocus}
+        aria-describedby={ariaDescribedby}
+        aria-invalid={invalid ? "true" : "false"}
+        class="ui-control min-h-[24rem] flex-1 resize-y px-4 py-4 font-mono text-[0.875rem] leading-6"
+    >{value}</textarea>
+</div>

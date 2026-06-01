@@ -1,0 +1,13 @@
+---
+type Props = {
+    type?: "button" | "submit" | "reset";
+    disabled?: boolean;
+    class?: string;
+};
+
+const { type = "button", disabled = false, class: className = "" } = Astro.props;
+---
+
+<button type={type} disabled={disabled} class:list={["ui-button px-4 py-3", className]}>
+    <slot />
+</button>

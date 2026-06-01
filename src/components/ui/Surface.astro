@@ -1,0 +1,19 @@
+---
+type Props = {
+    as?: "div" | "section" | "article" | "header" | "footer";
+    tone?: "primary" | "secondary" | "overlay";
+    class?: string;
+};
+
+const {
+    as: Tag = "div",
+    tone = "secondary",
+    class: className = "",
+} = Astro.props;
+
+const toneClass = tone === "primary" ? "ui-surface-primary" : tone === "overlay" ? "ui-surface-overlay" : "";
+---
+
+<Tag class:list={["ui-surface", toneClass, className]}>
+    <slot />
+</Tag>

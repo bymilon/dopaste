@@ -1,0 +1,18 @@
+---
+type Props = {
+    label: string;
+    for: string;
+    meta?: string;
+    class?: string;
+};
+
+const { label, for: htmlFor, meta = "", class: className = "" } = Astro.props;
+---
+
+<div class:list={["flex flex-col gap-3", className]}>
+    <div class="flex items-center justify-between gap-3">
+        <label for={htmlFor} class="ui-label">{label}</label>
+        {meta && <span class="ui-body-muted">{meta}</span>}
+    </div>
+    <slot />
+</div>

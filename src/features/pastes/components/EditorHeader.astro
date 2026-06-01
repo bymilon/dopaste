@@ -1,19 +1,26 @@
-<header class="flex flex-col gap-3 border-b border-zinc-800/80 pb-5 sm:flex-row sm:items-end sm:justify-between">
+---
+import Divider from "../../../components/ui/Divider.astro";
+---
+
+<header class="flex flex-col gap-4">
+    <div class="flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
     <div>
-        <p class="text-xs font-semibold uppercase tracking-[0.32em] text-zinc-500">
+        <p class="ui-label">
             Dopaste
         </p>
-        <h1 class="mt-2 text-2xl font-semibold tracking-tight text-zinc-100">
+        <h1 class="mt-2 font-semibold tracking-normal" style="color: var(--text-primary); font-size: var(--type-title);">
             New Markdown Paste
         </h1>
     </div>
     <nav aria-label="Editor actions" class="flex items-center gap-2">
         <a
             href="/"
-            class="rounded border border-zinc-800 px-3 py-2 text-xs font-semibold uppercase tracking-wide text-zinc-300 transition hover:border-zinc-600 hover:text-white"
+            class="ui-link px-3 py-2 text-xs font-semibold uppercase tracking-[0.18em]"
+            style="border: 1px solid var(--border-subtle); border-radius: var(--radius-sm);"
         >
             New
         </a>
     </nav>
+    </div>
+    <Divider />
 </header>
-
