@@ -3,7 +3,6 @@ import { env } from "cloudflare:workers";
 import MarkdownIt from "markdown-it";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Surface from "../components/ui/Surface.astro";
-import Button from "../components/ui/Button.astro";
 import ButtonLink from "../components/ui/ButtonLink.astro";
 import { getPaste } from "../features/pastes/storage";
 
@@ -12,13 +11,11 @@ export const prerender = false;
 const id = Astro.params.id;
 let paste = null;
 let renderedContent = "";
-let canonicalUrl = "";
 
 try {
     const db = env.DB;
     if (id) {
         paste = await getPaste(db, id);
-        canonicalUrl = `${Astro.url.origin}/${paste.id}`;
     }
 } catch {
     // Handle error
@@ -52,18 +49,6 @@ const formatDate = (dateString: string) => {
             class="paste-shell flex w-full flex-1 flex-col relative"
         >
             <div class="flex w-full flex-col flex-1">
-                {/* URL Display & Copy Button */}
-                <div class="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 mb-6">
-                    <div class="flex-1 ui-control-shell px-4 py-3 overflow-hidden">
-                        <span class="font-mono text-[color:var(--text-secondary)] text-sm truncate">
-                            {canonicalUrl}
-                        </span>
-                    </div>
-                    <Button id="copy-link-btn" variant="secondary" class="shrink-0">
-                        Copy Link
-                    </Button>
-                </div>
-
                 <div class="paste-content">
                     <div set:html={renderedContent} />
                 </div>
@@ -114,52 +99,3 @@ const formatDate = (dateString: string) => {
         </Surface>
     </BaseLayout>
 )}
-
-<!-- Client-side JS for copy link -->
-<script is:inline>
-document.addEventListener('DOMContentLoaded', function() {
-    const copyBtn = document.getElementById('copy-link-btn');
-    const url = window.location.href;
-    let ariaLive = null;
-
-    // Create aria-live region if not exists
-    function getAriaLive() {
-        if (!ariaLive) {
-            ariaLive = document.createElement('div');
-            ariaLive.setAttribute('aria-live', 'polite');
-            ariaLive.style.position = 'absolute';
-            ariaLive.style.width = '1px';
-            ariaLive.style.height = '1px';
-            ariaLive.style.padding = '0';
-            ariaLive.style.margin = '-1px';
-            ariaLive.style.overflow = 'hidden';
-            ariaLive.style.clip = 'rect(0,0,0,0)';
-            ariaLive.style.whiteSpace = 'nowrap';
-            ariaLive.style.borderWidth = '0';
-            document.body.appendChild(ariaLive);
-        }
-        return ariaLive;
-    }
-
-    if (copyBtn) {
-        copyBtn.addEventListener('click', async function() {
-            try {
-                await navigator.clipboard.writeText(url);
-                const originalText = copyBtn.textContent;
-                copyBtn.textContent = 'Copied!';
-                const live = getAriaLive();
-                live.textContent = 'Link copied to clipboard';
-                setTimeout(() => {
-                    copyBtn.textContent = originalText;
-                    live.textContent = '';
-                }, 2000);
-            } catch (error) {
-                console.error('Failed to copy link:', error);
-                // Fallback: show alert or just leave as is
-                const live = getAriaLive();
-                live.textContent = 'Failed to copy link';
-            }
-        });
-    }
-});
-</script>
