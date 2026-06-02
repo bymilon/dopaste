@@ -35,6 +35,18 @@ export async function createPaste(
     throw new Error("Unable to create unique paste id.");
 }
 
+export async function getPaste(
+    db: D1Database,
+    id: string,
+): Promise<PasteRecord | null> {
+    const result = await db
+        .prepare("SELECT id, paste, created_at FROM pastes WHERE id = ?")
+        .bind(id)
+        .first<PasteRecord>();
+    
+    return result || null;
+}
+
 function isUniqueConflict(error: unknown): boolean {
     return error instanceof Error && /unique|constraint|primary/i.test(error.message);
 }

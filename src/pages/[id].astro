@@ -1,0 +1,101 @@
+---
+import { env } from "cloudflare:workers";
+import MarkdownIt from "markdown-it";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Surface from "../components/ui/Surface.astro";
+import ButtonLink from "../components/ui/ButtonLink.astro";
+import { getPaste } from "../features/pastes/storage";
+
+export const prerender = false;
+
+const id = Astro.params.id;
+let paste = null;
+let renderedContent = "";
+
+try {
+    const db = env.DB;
+    if (id) {
+        paste = await getPaste(db, id);
+    }
+} catch {
+    // Handle error
+}
+
+if (!paste) {
+    Astro.response = new Response(null, { status: 404 });
+} else {
+    const md = new MarkdownIt();
+    renderedContent = md.render(paste.paste);
+}
+
+const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    return new Intl.DateTimeFormat("en-US", {
+        year: "numeric",
+        month: "short",
+        day: "numeric",
+        hour: "2-digit",
+        minute: "2-digit",
+        timeZoneName: "short",
+    }).format(date);
+};
+---
+
+{paste ? (
+    <BaseLayout title={`Dopaste - ${paste.id}`}>
+        <Surface
+            as="article"
+            tone="primary"
+            class="paste-shell flex w-full flex-1 flex-col relative"
+        >
+            <div class="flex w-full flex-col flex-1">
+                <div class="paste-content">
+                    <div set:html={renderedContent} />
+                </div>
+                <time
+                    datetime={paste.created_at}
+                    class="paste-meta-date"
+                >
+                    {formatDate(paste.created_at)}
+                </time>
+            </div>
+        </Surface>
+        <ButtonLink href="/" variant="primary" aria-label="New paste" class="paste-fab">
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                aria-hidden="true"
+            >
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+        </ButtonLink>
+    </BaseLayout>
+) : (
+    <BaseLayout title="Paste Not Found">
+        <Surface
+            as="article"
+            tone="primary"
+            class="paste-shell flex w-full flex-1 flex-col items-center justify-center"
+        >
+            <div class="flex flex-col items-center gap-6 text-center">
+                <h1 class="text-lg font-bold text-[color:var(--text-primary)]">
+                    Paste Not Found
+                </h1>
+                <p class="ui-body-muted">
+                    The paste you're looking for doesn't exist or has been removed.
+                </p>
+                <ButtonLink href="/" variant="secondary">
+                    Go Home
+                </ButtonLink>
+            </div>
+        </Surface>
+    </BaseLayout>
+)}
