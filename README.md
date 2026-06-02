@@ -2,6 +2,8 @@
 
 Minimal Markdown pastebin. Fast writing, permanent links, no accounts.
 
+[![Deploy to Cloudflare Workers](https://deploy.workers.cloudflare.com/button)](https://deploy.workers.cloudflare.com/?url=https://github.com/bymilon/dopaste)
+
 [![Astro](https://img.shields.io/badge/Astro-6-ff5d01.svg)](https://astro.build/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-6-3178c6.svg)](https://www.typescriptlang.org/)
 [![Cloudflare Workers](https://img.shields.io/badge/Cloudflare-Workers-f38020.svg)](https://workers.cloudflare.com/)
