@@ -1,7 +1,8 @@
 import type { MiddlewareHandler } from "astro";
 import { PASTE_ID_PATTERN } from "./features/pastes/model";
 
-const CACHE_DURATION = 31536000; // 1 year
+// Cache durations in seconds
+const CACHE_DURATION = 31536000; // 1 year for paste pages
 const STALE_WHILE_REVALIDATE = 86400; // 1 day
 
 function isPasteRoute(pathname: string): boolean {
@@ -13,12 +14,12 @@ export const onRequest: MiddlewareHandler = async (context, next) => {
   const url = new URL(context.request.url);
   const pathname = url.pathname;
 
-  // Only handle GET requests to paste routes
+  // Only handle caching for GET requests to paste routes
   if (context.request.method !== "GET" || !isPasteRoute(pathname)) {
     return next();
   }
 
-  // Access Cloudflare cache API
+  // Access Cloudflare cache API (available as global in Workers runtime)
   const cfCaches =
     typeof caches !== "undefined"
       ? (caches as unknown as { default: Cache })
@@ -29,16 +30,21 @@ export const onRequest: MiddlewareHandler = async (context, next) => {
     return next();
   }
 
-  const cacheKey = new Request(url.toString(), { method: "GET" });
+  // Create cache key as Request object (required by Cloudflare Cache API)
+  const cacheKey = new Request(url.toString(), {
+    method: "GET",
+  });
 
+  // Try to get cached response
   let cachedResponse: Response | undefined;
   try {
     cachedResponse = await cache.match(cacheKey);
   } catch {
-    // Cache match failed, proceed
+    // Cache match failed
   }
 
   if (cachedResponse) {
+    // Return cached response with HIT status
     const headers = new Headers(cachedResponse.headers);
     headers.set("CF-Cache-Status", "HIT");
 
@@ -49,13 +55,17 @@ export const onRequest: MiddlewareHandler = async (context, next) => {
     });
   }
 
+  // No cache found, proceed with request
   const response = await next();
 
+  // Only cache successful HTML responses
   if (response.status === 200) {
     const contentType = response.headers.get("Content-Type") || "";
     if (contentType.includes("text/html")) {
+      // Clone response for caching
       const responseClone = response.clone();
 
+      // Build response with proper cache headers
       const cacheHeaders = new Headers(responseClone.headers);
       cacheHeaders.set(
         "Cache-Control",
@@ -68,6 +78,7 @@ export const onRequest: MiddlewareHandler = async (context, next) => {
         headers: cacheHeaders,
       });
 
+      // Store in cache - must await for it to complete before response ends
       try {
         await cache.put(cacheKey, responseForCache);
       } catch {
@@ -75,6 +86,7 @@ export const onRequest: MiddlewareHandler = async (context, next) => {
       }
     }
 
+    // Return response with MISS status
     const missHeaders = new Headers(response.headers);
     missHeaders.set("CF-Cache-Status", "MISS");
 
