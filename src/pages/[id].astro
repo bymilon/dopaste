@@ -4,18 +4,34 @@ import MarkdownIt from "markdown-it";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import Surface from "../components/ui/Surface.astro";
 import ButtonLink from "../components/ui/ButtonLink.astro";
-import { getPaste } from "../features/pastes/storage";
+import { getPaste, getPasteFromKV, putPasteToKV } from "../features/pastes/storage";
 
 export const prerender = false;
 
 const id = Astro.params.id;
 let paste = null;
 let renderedContent = "";
+let cachedHtml = null;
+let pasteCreatedAt = "";
 
 try {
     const db = env.DB;
+    const kv = env.CACHE;
+
     if (id) {
-        paste = await getPaste(db, id);
+        cachedHtml = await getPasteFromKV(kv, id);
+        if (cachedHtml) {
+            renderedContent = cachedHtml;
+            paste = { id, paste: "", created_at: "" };
+        } else {
+            paste = await getPaste(db, id);
+            if (paste) {
+                const md = new MarkdownIt();
+                renderedContent = md.render(paste.paste);
+                pasteCreatedAt = paste.created_at;
+                await putPasteToKV(kv, id, renderedContent);
+            }
+        }
     }
 } catch {
     // Handle error
@@ -24,8 +40,10 @@ try {
 if (!paste) {
     Astro.response = new Response(null, { status: 404 });
 } else {
-    const md = new MarkdownIt();
-    renderedContent = md.render(paste.paste);
+    Astro.response.headers.set("Cache-Control", "public, max-age=31536000, immutable");
+    if (pasteCreatedAt) {
+        Astro.response.headers.set("Last-Modified", new Date(pasteCreatedAt).toUTCString());
+    }
 }
 
 const formatDate = (dateString: string) => {
@@ -52,12 +70,14 @@ const formatDate = (dateString: string) => {
                 <div class="paste-content">
                     <div set:html={renderedContent} />
                 </div>
-                <time
-                    datetime={paste.created_at}
-                    class="paste-meta-date"
-                >
-                    {formatDate(paste.created_at)}
-                </time>
+                {!cachedHtml && pasteCreatedAt && (
+                    <time
+                        datetime={pasteCreatedAt}
+                        class="paste-meta-date"
+                    >
+                        {formatDate(pasteCreatedAt)}
+                    </time>
+                )}
             </div>
         </Surface>
         <ButtonLink href="/" variant="primary" aria-label="New paste" class="paste-fab">
@@ -73,8 +93,8 @@ const formatDate = (dateString: string) => {
                 stroke-linejoin="round"
                 aria-hidden="true"
             >
-                <line x1="12" y1="5" x2="12" y2="19"></line>
-                <line x1="5" y1="12" x2="19" y2="12"></line>
+                <line x1="12" y1="5" x2="12" y2="19" />
+                <line x1="5" y1="12" x2="19" y2="12" />
             </svg>
         </ButtonLink>
     </BaseLayout>
