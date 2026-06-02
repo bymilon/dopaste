@@ -16,7 +16,7 @@ const errorId = "paste-error";
 const describedBy = error ? `${helperId} ${errorId}` : helperId;
 ---
 
-<form method="post" class="flex flex-1 flex-col gap-2">
+<form method="post" class="paste-form">
     <FormField label="Markdown" for="paste" class="paste-field flex flex-1">
         <p id={helperId} class="sr-only">
             Paste markdown content up to 64 KiB.
@@ -42,7 +42,7 @@ const describedBy = error ? `${helperId} ${errorId}` : helperId;
         )
     }
 
-    <div class="flex justify-end">
+    <div class="paste-action-row">
         <Button
             type="submit"
             disabled={disabled}
