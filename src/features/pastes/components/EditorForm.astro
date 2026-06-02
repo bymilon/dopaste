@@ -16,8 +16,8 @@ const errorId = "paste-error";
 const describedBy = error ? `${helperId} ${errorId}` : helperId;
 ---
 
-<form method="post" class="flex min-h-[28rem] flex-1 flex-col gap-4">
-    <FormField label="Markdown" for="paste" meta="64 KiB max">
+<form method="post" class="flex flex-1 flex-col gap-2">
+    <FormField label="Markdown" for="paste" class="paste-field flex flex-1">
         <p id={helperId} class="sr-only">
             Paste markdown content up to 64 KiB.
         </p>
@@ -29,12 +29,8 @@ const describedBy = error ? `${helperId} ${errorId}` : helperId;
             disabled={disabled}
             invalid={Boolean(error)}
             ariaDescribedby={describedBy}
-            placeholder={`# Write your markdown here...
-
-## Notes
-- Fast anonymous sharing
-- Permanent URL
-- Rendered read view`}
+            class="paste-editor flex-1"
+            placeholder=""
         />
     </FormField>
 
@@ -47,8 +43,12 @@ const describedBy = error ? `${helperId} ${errorId}` : helperId;
     }
 
     <div class="flex justify-end">
-        <Button type="submit" disabled={disabled}>
-            Create Paste
+        <Button
+            type="submit"
+            disabled={disabled}
+            class="create-paste-button w-full px-5 py-4 sm:w-auto"
+        >
+            Create New Paste
         </Button>
     </div>
 </form>

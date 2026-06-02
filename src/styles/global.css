@@ -3,30 +3,38 @@
 :root {
     color-scheme: dark;
 
-    --surface-primary: oklch(13.5% 0.011 238);
-    --surface-secondary: oklch(16.5% 0.013 238);
-    --surface-elevated: oklch(19.5% 0.014 238);
-    --surface-overlay: oklch(23% 0.016 238);
+    --surface-primary: oklch(16% 0.022 255);
+    --surface-secondary: oklch(23% 0.023 255);
+    --surface-elevated: oklch(27% 0.023 255);
+    --surface-overlay: oklch(31% 0.022 255);
 
-    --border-subtle: oklch(26% 0.012 238 / 0.64);
-    --border-strong: oklch(34% 0.014 238 / 0.82);
-    --border-interactive: oklch(66% 0.095 170 / 0.78);
+    --border-subtle: oklch(30% 0.02 255 / 0.36);
+    --border-strong: oklch(42% 0.022 255 / 0.72);
+    --border-interactive: oklch(68% 0.055 252 / 0.72);
 
-    --text-primary: oklch(92% 0.012 238);
-    --text-secondary: oklch(72% 0.015 238);
-    --text-tertiary: oklch(53% 0.015 238);
-    --text-disabled: oklch(43% 0.012 238);
+    --text-primary: oklch(93% 0.008 255);
+    --text-secondary: oklch(76% 0.024 255);
+    --text-tertiary: oklch(67% 0.026 255);
+    --text-disabled: oklch(48% 0.02 255);
 
-    --accent: oklch(68% 0.105 170);
-    --accent-strong: oklch(74% 0.11 170);
+    --accent: oklch(38% 0.028 255);
+    --accent-strong: oklch(44% 0.032 255);
     --success: oklch(70% 0.12 152);
     --warning: oklch(76% 0.13 82);
     --danger: oklch(69% 0.16 24);
 
     --radius-xs: 3px;
-    --radius-sm: 5px;
-    --radius-md: 7px;
-    --radius-lg: 9px;
+    --radius-sm: 2px;
+    --radius-md: 2px;
+    --radius-lg: 2px;
+
+    --space-xs: 0.25rem;
+    --space-sm: 0.5rem;
+    --space-md: 0.75rem;
+    --space-lg: 1rem;
+    --space-xl: 1.5rem;
+    --space-2xl: 2rem;
+    --space-3xl: 3rem;
 
     --type-label: 0.6875rem;
     --type-body: 0.9375rem;
@@ -45,13 +53,7 @@
 
     body {
         min-height: 100vh;
-        background:
-            radial-gradient(
-                circle at 18% -12%,
-                oklch(24% 0.025 205 / 0.1),
-                transparent 30rem
-            ),
-            linear-gradient(180deg, var(--surface-secondary), var(--surface-primary) 30rem);
+        background: var(--surface-primary);
         color: var(--text);
         font-family:
             ui-sans-serif,
@@ -73,15 +75,10 @@
 @layer components {
     .ui-surface {
         position: relative;
-        border: 1px solid var(--border-subtle);
-        border-radius: var(--radius-lg);
-        background:
-            linear-gradient(180deg, oklch(100% 0 0 / 0.022), transparent 28%),
-            linear-gradient(180deg, var(--surface-elevated), var(--surface-secondary));
-        box-shadow:
-            inset 0 1px 0 oklch(100% 0 0 / 0.04),
-            inset 0 -1px 0 oklch(0% 0 0 / 0.22),
-            0 1px 2px oklch(0% 0 0 / 0.16);
+        border: 0;
+        border-radius: 0;
+        background: transparent;
+        box-shadow: none;
     }
 
     .ui-surface-primary {
@@ -125,14 +122,10 @@
 
     .ui-control-shell {
         position: relative;
-        border: 1px solid var(--border-subtle);
+        border: 0;
         border-radius: var(--radius-md);
-        background:
-            linear-gradient(180deg, oklch(100% 0 0 / 0.022), transparent 22%),
-            linear-gradient(180deg, var(--surface-overlay), var(--surface-elevated));
-        box-shadow:
-            inset 0 1px 0 oklch(100% 0 0 / 0.04),
-            inset 0 -1px 0 oklch(0% 0 0 / 0.24);
+        background: var(--surface-secondary);
+        box-shadow: none;
         transition:
             border-color 160ms ease,
             box-shadow 160ms ease,
@@ -140,11 +133,7 @@
     }
 
     .ui-control-shell:focus-within {
-        border-color: var(--border-interactive);
-        box-shadow:
-            inset 0 1px 0 oklch(100% 0 0 / 0.05),
-            inset 0 -1px 0 oklch(0% 0 0 / 0.26),
-            0 0 0 3px oklch(68% 0.105 170 / 0.12);
+        box-shadow: 0 0 0 1px var(--border-interactive);
     }
 
     .ui-control {
@@ -156,12 +145,16 @@
     }
 
     .ui-control::placeholder {
-        color: var(--text-disabled);
+        color: oklch(50% 0.012 238);
     }
 
     .ui-control:disabled {
         cursor: not-allowed;
         color: var(--text-disabled);
+    }
+
+    .ui-textarea {
+        min-height: 22rem;
     }
 
     .ui-button {
@@ -172,7 +165,7 @@
         border-radius: var(--radius-md);
         font-size: var(--type-label);
         font-weight: 700;
-        letter-spacing: 0.12em;
+        letter-spacing: 0;
         line-height: 1;
         text-decoration: none;
         text-transform: uppercase;
@@ -185,14 +178,10 @@
     }
 
     .ui-button-primary {
-        border-color: oklch(78% 0.14 170 / 0.64);
-        background:
-            linear-gradient(180deg, oklch(100% 0 0 / 0.16), transparent 44%),
-            linear-gradient(180deg, var(--accent-strong), var(--accent));
-        box-shadow:
-            inset 0 1px 0 oklch(100% 0 0 / 0.2),
-            inset 0 -1px 0 oklch(0% 0 0 / 0.18);
-        color: oklch(15% 0.024 170);
+        border-color: transparent;
+        background: var(--accent);
+        box-shadow: none;
+        color: var(--text-primary);
     }
 
     .ui-button-secondary {
@@ -225,8 +214,8 @@
     }
 
     .ui-button:hover:not(:disabled) {
-        filter: brightness(1.04);
-        transform: translateY(-1px);
+        filter: brightness(1.08);
+        transform: none;
     }
 
     .ui-button:focus-visible,
@@ -251,6 +240,31 @@
 
     .ui-link:hover {
         color: var(--text-secondary);
+    }
+
+    .paste-shell {
+        min-height: calc(100vh - 13rem);
+    }
+
+    .paste-field > div:first-child {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+    }
+
+    .paste-editor {
+        min-height: calc(100vh - 17.25rem);
+    }
+
+    .create-paste-button {
+        min-width: 14rem;
+        background: oklch(38% 0.028 255);
+        font-size: 1rem;
+        font-weight: 750;
+        text-transform: uppercase;
     }
 
     @media (prefers-reduced-motion: reduce) {

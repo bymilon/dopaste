@@ -2,7 +2,6 @@
 import { env } from "cloudflare:workers";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import EditorForm from "../features/pastes/components/EditorForm.astro";
-import EditorHeader from "../features/pastes/components/EditorHeader.astro";
 import Surface from "../components/ui/Surface.astro";
 import { CreatePasteSchema } from "../features/pastes/model";
 import { createPaste } from "../features/pastes/storage";
@@ -43,8 +42,11 @@ if (Astro.request.method === "POST") {
 ---
 
 <BaseLayout title="Dopaste">
-    <Surface as="section" class="flex flex-1 flex-col gap-5 p-4 sm:p-5">
-        <EditorHeader />
+    <Surface
+        as="section"
+        tone="primary"
+        class="paste-shell flex w-full flex-1 flex-col"
+    >
         <EditorForm error={error} value={value} disabled={!db} />
     </Surface>
 </BaseLayout>

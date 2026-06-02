@@ -1,5 +1,28 @@
 # TODO
 
+## Current UI Refactor
+
+- [x] UI-001 Refactor `index.astro` into a calmer home shell.
+  - Acceptance: page structure removes the header, centers the editor, and preserves the paste creation flow.
+- [x] UI-002 Refine zen/minimal dark dashboard tokens.
+  - Acceptance: surfaces, borders, text, accents, spacing, and radii feel brutally minimal and cohesive with the attached dark dashboard direction.
+- [x] UI-003 Polish the editor experience.
+  - Acceptance: textarea/editor states, placeholder tone, focus treatment, helper/error text, and content density feel intentional across empty and filled states.
+- [x] UI-004 Polish the create button.
+  - Acceptance: primary action has clear hierarchy, refined hover/focus/disabled states, and remains tactile without visual noise.
+- [x] UI-005 Polish the footer.
+  - Acceptance: footer navigation and metadata align with the minimal shell, keep low emphasis, and do not distract from the editor.
+- [x] UI-008 Remove homepage header.
+  - Acceptance: the first screen has no visible product/header band; the editor is the primary object.
+- [x] UI-009 Reverse-engineer ultra-minimal paste screen.
+  - Acceptance: homepage matches the provided reference structure with a full-width editor plane, bottom-right create action, centered footer links, and no decorative chrome.
+- [ ] UI-006 Verify responsive and accessible behavior.
+  - Acceptance: desktop and mobile layouts avoid overlap, preserve readable text, maintain keyboard focus visibility, and keep form relationships intact.
+  - Status: automated form relationships preserved; browser verification still needed because dev-server approval was declined.
+- [ ] UI-007 Run build, lint, and visual checks.
+  - Acceptance: build and lint pass, and desktop/mobile visual review confirms the dark dashboard-inspired refactor renders as intended.
+  - Status: lint and build pass; desktop/mobile visual review still pending.
+
 ## Design System Refactor
 
 - [x] DS-001 Create semantic dark-mode token groups for surfaces, borders, typography, semantic colors, radius, and type scale.

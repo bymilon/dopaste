@@ -7,10 +7,8 @@ type Props = {
     description?: string;
 };
 
-const {
-    title = "Dopaste",
-    description = "Anonymous markdown pastebin.",
-} = Astro.props;
+const { title = "Dopaste", description = "Anonymous markdown pastebin." } =
+    Astro.props;
 ---
 
 <html lang="en">
@@ -22,9 +20,9 @@ const {
     </head>
     <body class="min-h-screen antialiased">
         <div
-            class="mx-auto flex min-h-screen w-full max-w-5xl flex-col px-4 py-6 sm:px-6 lg:px-8"
+            class="mx-auto flex min-h-screen w-full max-w-6xl flex-col px-3 py-4 sm:px-8 sm:py-8 lg:px-12"
         >
-            <main class="flex flex-1 py-6">
+            <main class="flex flex-1 items-start">
                 <slot />
             </main>
             <EditorFooter />
