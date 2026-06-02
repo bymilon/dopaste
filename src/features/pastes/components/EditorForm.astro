@@ -36,7 +36,7 @@ const describedBy = error ? `${helperId} ${errorId}` : helperId;
 
     {
         error && (
-            <p id={errorId} role="alert" class="text-sm" style="color: var(--danger);">
+            <p id={errorId} role="alert" class="text-sm ui-error-message">
                 {error}
             </p>
         )

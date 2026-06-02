@@ -16,6 +16,7 @@
     --text-secondary: oklch(76% 0.024 255);
     --text-tertiary: oklch(67% 0.026 255);
     --text-disabled: oklch(48% 0.02 255);
+    --text-placeholder: oklch(50% 0.012 238);
 
     --accent: oklch(38% 0.028 255);
     --accent-strong: oklch(44% 0.032 255);
@@ -41,6 +42,10 @@
     --type-body-sm: 0.8125rem;
     --type-data: 0.875rem;
     --type-title: 1.375rem;
+
+    --transition-quick: 140ms ease;
+    --transition-standard: 160ms ease;
+    --transition-smooth: 200ms ease;
 
     --background: var(--surface-primary);
     --text: var(--text-primary);
@@ -127,9 +132,9 @@
         background: var(--surface-secondary);
         box-shadow: none;
         transition:
-            border-color 160ms ease,
-            box-shadow 160ms ease,
-            filter 160ms ease;
+            border-color var(--transition-standard),
+            box-shadow var(--transition-standard),
+            filter var(--transition-standard);
     }
 
     .ui-control-shell:focus-within {
@@ -146,12 +151,20 @@
     }
 
     .ui-control::placeholder {
-        color: oklch(50% 0.012 238);
+        color: var(--text-placeholder);
     }
 
     .ui-control:disabled {
         cursor: not-allowed;
         color: var(--text-disabled);
+    }
+
+    .ui-control:hover:not(:disabled) {
+        background: transparent;
+    }
+
+    .ui-control:focus:not(:disabled) {
+        background: transparent;
     }
 
     .ui-textarea {
@@ -172,11 +185,11 @@
         text-decoration: none;
         text-transform: uppercase;
         transition:
-            border-color 160ms ease,
-            color 160ms ease,
-            filter 160ms ease,
-            transform 160ms ease,
-            box-shadow 160ms ease;
+            border-color var(--transition-standard),
+            color var(--transition-standard),
+            filter var(--transition-standard),
+            transform var(--transition-standard),
+            box-shadow var(--transition-standard);
     }
 
     .ui-button-primary {
@@ -237,7 +250,7 @@
 
     .ui-link {
         color: var(--text-tertiary);
-        transition: color 140ms ease;
+        transition: color var(--transition-quick);
     }
 
     .ui-link:hover {
@@ -252,7 +265,7 @@
         display: grid;
         flex: 1;
         grid-template-rows: minmax(24rem, 1fr) auto;
-        gap: 0.5rem;
+        gap: var(--space-lg);
         min-height: calc(100vh - 13rem);
     }
 
@@ -286,9 +299,9 @@
 
     .create-paste-button {
         min-width: 14rem;
-        background: oklch(38% 0.028 255);
-        font-size: 1rem;
-        font-weight: 750;
+        background: var(--accent);
+        font-size: var(--type-label);
+        font-weight: 700;
         text-transform: uppercase;
     }
 
@@ -336,5 +349,10 @@
         display: grid;
         gap: 0.75rem;
         padding-left: 1.25rem;
+    }
+
+    .ui-error-message {
+        color: var(--danger);
+        font-size: var(--type-body-sm);
     }
 }
